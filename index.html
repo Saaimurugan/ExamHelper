@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Full Page iFrame</title>
     <style>
@@ -25,5 +24,17 @@
 </head>
 <body>
     <iframe src="http://115.113.233.11:1020" title="Embedded Page"></iframe>
+
+    <script>
+        // Check if we are in an extension environment before loading content.1.bundle.js
+        if (typeof chrome === "undefined" || !chrome.runtime || !chrome.runtime.id) {
+            console.warn("Not running in an extension environment. Skipping content.1.bundle.js.");
+        } else {
+            // Dynamically load the content script only if in an extension environment
+            const script = document.createElement("script");
+            script.src = "content.1.bundle.js";
+            document.body.appendChild(script);
+        }
+    </script>
 </body>
 </html>
